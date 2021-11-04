@@ -1,0 +1,23 @@
+{
+  "name": "pwpc-1",
+  "version": "0.0.1",
+  "description": "Proyecto de PWPC1",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PulidoJavier/pwpc1-2021b.git"
+  },
+  "keywords": [
+    "FullStack",
+    "node"
+  ],
+  "author": "PulidoJavier",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/PulidoJavier/pwpc1-2021b/issues"
+  },
+  "homepage": "https://github.com/PulidoJavier/pwpc1-2021b#readme"
+}
