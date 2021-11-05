@@ -6,14 +6,23 @@ import http from 'http';
 // ante cualquier peticion de un recurso a nuestro server
 // (request, response)
 const server = http.createServer((req, res)=>{
+    //Informa en la consola del servidor que se recibe una peticion
     console.log("Se ha recibido una peticion.");
+
     //Logeando-Registrar informacion de la peticion
     console.log(`Informacion de la peticion`);
     console.log(`url: ${req.url}`);   //interpolacion
-    console.log(`Request Method: ${req.method}`) ;    //metodo de peticion
-    console.log(`Plataforma del cliente: ${req.headers['sec-ch-ua-platform']}`) ;  
-    // Respondemos
-    res.write('Esta es la Respuesta del servidor');
+    console.log(`Request Method: ${req.method}`);    //metodo de peticion
+
+    // Establecer el tipo de contenido que se entregara al cliente
+    res.setHeader('Content-Type' , 'text/html');
+
+    //Envio el contenido
+    res.write("<html>");
+    res.write("<head><title>My App</title></head>");
+    res.write(`<body><h1>Hello from the server</h1><p style="color:red">Recuerso solicitado: ${req.url}</p></body>`);
+    res.write("</html>");
+
     // Terminar la conexion
     res.end();
 });
