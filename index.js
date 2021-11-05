@@ -1,30 +1,48 @@
 //1.- Importar el modulo http
 import http from 'http';
+/**
+ * codigo de Emojies
+ * Ref: https://www.w3schools.com/charsets/ref_emoji.asp
+ */
 
 // 2.- Crear servidor
 // cb (callback) es una *funcion* que se ejecutara
 // ante cualquier peticion de un recurso a nuestro server
 // (request, response)
 const server = http.createServer((req, res)=>{
-    //Informa en la consola del servidor que se recibe una peticion
-    console.log("Se ha recibido una peticion.");
+    //Obteniendo el recurso solicitado
+    let { url , method} = req;   //desestructuracion
 
-    //Logeando-Registrar informacion de la peticion
-    console.log(`Informacion de la peticion`);
-    console.log(`url: ${req.url}`);   //interpolacion
-    console.log(`Request Method: ${req.method}`);    //metodo de peticion
+        //Informa en la consola del servidor que se recibe una peticion
+        console.log(`Se ha solicitado el siguiente recurso: ${method} : ${req}`);
 
-    // Establecer el tipo de contenido que se entregara al cliente
-    res.setHeader('Content-Type' , 'text/html');
+    //filtrar url
+    if(url === '/'){
+        //Respuesta ante "Get /"
+        //1.Estableciendo el tipo de retorno como HTML
+        res.setHeader('Content-Type' , 'text/html');
+        //2. Escribiendo la respuesta
+        res.write('<html>');
+        res.write('<head><title>My App</title></head>');
+        res.write('<body><h1>&#9889; Hello from my server</h1></body>');
+        res.write('</html>');
+        //Cerrando Conexion
+        res.end();
 
-    //Envio el contenido
-    res.write("<html>");
-    res.write("<head><title>My App</title></head>");
-    res.write(`<body><h1>Hello from the server</h1><p style="color:red">Recuerso solicitado: ${req.url}</p></body>`);
-    res.write("</html>");
-
-    // Terminar la conexion
-    res.end();
+    }else{
+        //Se registra el Recurso No encontrado
+        console.log(`No se ha encontrado el recurso: ${url}`);
+        //Recurso No encontrado
+            //1.Estableciendo el tipo de retorno como HTML
+            res.setHeader('Content-Type' , 'text/html');
+            //2. Escribiendo la respuesta
+            res.write('<html>');
+            res.write('<head><title>My App</title></head>');
+            res.write('<body><h1>Error 404 - Recurso no encontrado &#9940</h1></body>');
+            res.write('</html>');
+            //Cerrando Conexion
+            res.end()
+    }
 });
 
 // 3.- Pongo a trabajar el servidor
