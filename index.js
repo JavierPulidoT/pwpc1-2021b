@@ -29,7 +29,24 @@ const server = http.createServer((req, res)=>{
         //Cerrando Conexion
         res.end();
 
-    }else{
+    }else if(url === '/author'){
+        //Respuesta ante "Get /"
+        //1.Estableciendo el tipo de retorno como HTML
+        res.setHeader('Content-Type' , 'text/html');
+        let url_image = 'https://pbs.twimg.com/profile_images/1347250713307582467/pYru9Bz6_400x400.jpg';
+        //2. Escribiendo la respuesta
+        res.write('<html>');
+        res.write('<head><title>My App</title></head>');
+        res.write('<body>');
+        res.write('<h1>&#9889; Autor</h1>');
+        res.write('<p>Javier Pulido - Web Developer</p>');
+        res.write(`<img width="300px" src="${url_image}" alt=Foto Javier Pulido">`);
+        res.write('</body>');
+        res.write('</html>');
+        //Cerrando Conexion
+        res.end();
+    }
+        else{
         //Se registra el Recurso No encontrado
         console.log(`No se ha encontrado el recurso: ${url}`);
         //Recurso No encontrado
