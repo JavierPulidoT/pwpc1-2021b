@@ -22,13 +22,57 @@ const server = http.createServer((req, res)=>{
         //1.Estableciendo el tipo de retorno como HTML
         res.setHeader('Content-Type' , 'text/html');
         //2. Escribiendo la respuesta
-        res.write('<html>');
-        res.write('<head><title>My App</title></head>');
-        res.write('<body><h1>&#9889; Hello from my server</h1></body>');
-        res.write('</html>');
+        res.write(`
+        <html>
+            <head>
+                <title>Enter the message</title>
+            </head>
+            <body>
+                <h1>Send Message</h1>
+                <form action ="/message" method="POST">
+                <input type="text" name="message">
+                <button type="submit" >send</button>
+                </form>
+            </body>
+            </html>
+        `);
+
+
         //Cerrando Conexion
         res.end();
-
+    }else if(url === '/message' && method === "POST"){
+        //1. Se crea una variable para guardar los datos de entrada
+        let body = [];
+        //2. Registrar un manejador para la entrada de datos
+        req.on("data",(chunk) => { //manejador de EVENTOS
+            //2.1 Registrando los trozos que llegan al backend
+            console.log(chunk);
+            //2.2 Acumulo los datos de entrada
+            body.push  = (chunk);
+            //2.3 Proteccion en caso de recepcion masiva de datos  ANTI HACK
+            if(body.length > 1e6) req.socket.destroy();      
+        });
+        //3. Registrando un manejador de fin de recepcion de datos
+        req.on("end", () => {
+            const parsedBody = Buffer.concat(body).toString();
+            const message = parsedBody.split('=')[1];
+             //1.Estableciendo el tipo de retorno como HTML
+                 res.setHeader('Content-Type' , 'text/html');
+            res.write(`
+            <html>
+            <head>
+                <title>Recived Message</title>
+            </head>
+            <body>
+                <h1>Recived Message</h1>
+                <p>Thank You!!!</p>
+                <p>The message we recieved was this: ${message}</p>
+            </body>
+            </html> 
+            `);
+            //Finalizo coneccion
+            return res.end();
+        });
     }else if(url === '/author'){
         //Respuesta ante "Get /"
         //1.Estableciendo el tipo de retorno como HTML
