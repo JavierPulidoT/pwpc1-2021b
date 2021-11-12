@@ -1,5 +1,6 @@
 //1.- Importar el modulo http
 import http from 'http';
+import fs from "fs";  //me permite interacruar con archivos S.O servidor
 /**
  * codigo de Emojies
  * Ref: https://www.w3schools.com/charsets/ref_emoji.asp
@@ -46,30 +47,26 @@ const server = http.createServer((req, res)=>{
         //2. Registrar un manejador para la entrada de datos
         req.on("data",(chunk) => { //manejador de EVENTOS
             //2.1 Registrando los trozos que llegan al backend
+            console.log("Recibiendo datos");
             console.log(chunk);
             //2.2 Acumulo los datos de entrada
-            body.push  = (chunk);
+            body.push(chunk);
+            console.log(`Datos Recividos: ${body}`);
             //2.3 Proteccion en caso de recepcion masiva de datos  ANTI HACK
             if(body.length > 1e6) req.socket.destroy();      
         });
         //3. Registrando un manejador de fin de recepcion de datos
         req.on("end", () => {
+            console.log("Finalizando Conexion");
             const parsedBody = Buffer.concat(body).toString();
             const message = parsedBody.split('=')[1];
-             //1.Estableciendo el tipo de retorno como HTML
-                 res.setHeader('Content-Type' , 'text/html');
-            res.write(`
-            <html>
-            <head>
-                <title>Recived Message</title>
-            </head>
-            <body>
-                <h1>Recived Message</h1>
-                <p>Thank You!!!</p>
-                <p>The message we recieved was this: ${message}</p>
-            </body>
-            </html> 
-            `);
+
+            //Guardando el mensaje en un archivo
+            fs.writeFileSync('message.txt', message);
+            //Esfablecer el status code
+            res.statusCode = 302;
+            //Establecer la ruta de direccionamiento
+            res.setHeader('Location','/');
             //Finalizo coneccion
             return res.end();
         });
