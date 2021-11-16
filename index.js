@@ -38,7 +38,6 @@ const server = http.createServer((req, res)=>{
             </html>
         `);
 
-
         //Cerrando Conexion
         res.end();
     }else if(url === '/message' && method === "POST"){
@@ -51,24 +50,41 @@ const server = http.createServer((req, res)=>{
             console.log(chunk);
             //2.2 Acumulo los datos de entrada
             body.push(chunk);
-            console.log(`Datos Recividos: ${body}`);
+            console.log(`Datos Recibidos: ${body}`);
             //2.3 Proteccion en caso de recepcion masiva de datos  ANTI HACK
             if(body.length > 1e6) req.socket.destroy();      
         });
+ // EjecutaOperacion(ARGS1,ARG2,ARG3, cb)
+    // Modelo Asincrono
+    // Suma2Numeros(1,2,cb)
+    /*
+    1. let res = Suma2Numeros(1,2);
+    2. console.log(res) // undefined
+    */
+
         //3. Registrando un manejador de fin de recepcion de datos
         req.on("end", () => {
-            console.log("Finalizando Conexion");
             const parsedBody = Buffer.concat(body).toString();
             const message = parsedBody.split('=')[1];
-
             //Guardando el mensaje en un archivo
-            fs.writeFileSync('message.txt', message);
-            //Esfablecer el status code
-            res.statusCode = 302;
-            //Establecer la ruta de direccionamiento
-            res.setHeader('Location','/');
-            //Finalizo coneccion
-            return res.end();
+            fs.writeFile('message.txt' , message, (err)=>{
+                //verificar si hubo error
+                if(err){
+                    console.log("No se pudo grabar el archivo");
+                    res.statusCode = 500; //Internqal Server Error
+                    res.setHeader("Content-Type", "text/html");
+                    res.write("ERROR WHEN LOADING FILE");
+                    return res.end();
+                }
+                //En caso de no haber error
+                //establecer el status code de redireccionamineto
+                res.statusCode = 302;
+                //Establecer la ruta de direccionamiento
+                res.setHeader('Location','/');
+                //Finalizo coneccion
+                return res.end();
+            });
+         
         });
     }else if(url === '/author'){
         //Respuesta ante "Get /"
