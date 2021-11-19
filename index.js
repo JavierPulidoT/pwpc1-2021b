@@ -2,6 +2,12 @@
 import http from 'http';
 //2. importando el module de routes
 import routes from "./routes.js"
+// 3. Importando express
+import Express from 'express'
+
+//Crear una instancia de Express
+const app = Express();  //(req,res,next)=> {} event handler
+
 
 /** 
  * codigo de Emojies
@@ -12,7 +18,7 @@ import routes from "./routes.js"
 // cb (callback) es una *funcion* que se ejecutara
 // ante cualquier peticion de un recurso a nuestro server
 // (request, response)
-const server = http.createServer(routes.requestHandler);
+const server = http.createServer(app);
 // 3.- Pongo a trabajar el servidor
 // le paso un callback que escribira en la consola
 // cuando el servidor este escuchando
