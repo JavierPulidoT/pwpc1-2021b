@@ -9,15 +9,16 @@ import Express from 'express'
 //Crear una instancia de Express
 const app = Express();  //(req,res,next)=> {} event handler
 
-
-app.use('/about',(req, res)=>{
+//Se debe colocar primero ya que el orden de registro
+// determina el orden de verificacion
+app.use('/about',(_, res)=>{
     console.log('Se ha realizado la peticion: "/about"');
    res.send("<h1> Acerca de ...</h1>\n Sitio inicial hecho con NodeJS!");
 });
-
-app.use('/',(req, res)=>{
+//La ruta raiz entra en todo tipo de peticion
+app.use(['/','/home'],(_, res)=>{
     console.log('Se ha realizado la peticion: "/"');
-   res.send("<h1> Mi APP</h1>\n Bienvenidos a este sitio!");
+   res.send("<h1>Mi APP</h1>\n Bienvenidos a este sitio!");
 });
 
 /** 
