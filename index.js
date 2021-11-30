@@ -1,11 +1,11 @@
 //1.- Importar el modulo http
 import http from 'http';
 //2. importando el module de routes
-import routes from "./routes.js"
+//import routes from "./routes.js"
 // 3. Importando express
 import Express from 'express'
 
-
+console.log(`Variable de entorno: ${process.env.NODE_ENV}`)
 //Crear una instancia de Express
 const app = Express();  //(req,res,next)=> {} event handler
 
