@@ -1,5 +1,8 @@
 // Importando el enrutador de Express
 import { Router } from "express";
+// Importando el Mudulo Path de node
+//Para trabajar con rutas absolutas
+import path from 'path'
 
 //2 Crear una instacia del enrutador
 const router =  Router(); 
@@ -12,7 +15,8 @@ router.get('/about',(_, res)=>{
 
 router.get(['/','/home'],(_, res)=>{
     console.log('📞 Se ha realizado la petición: "/"');
-    res.send("<h1>Mi APP</h1>\n🙋‍♂️ Bienvenido a este sitio");
+    const filePath = path.join(path.resolve(),"server","views","shop.html");                
+    res.sendFile(filePath);                   //ruta obsulutas y Rutas relativas
   });
 
 

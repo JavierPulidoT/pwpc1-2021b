@@ -26,6 +26,11 @@ app.use('/admin',adminRoute);
 //Se agrega a la aplicacion la ruta home
 app.use(homeRoute);
 
+//404 error
+app.use((req,res,next) => {
+  res.status(404).send('<h1>🥺Recurso no encontrado</h1>');
+});
+
 
 /** 
  * codigo de Emojies
