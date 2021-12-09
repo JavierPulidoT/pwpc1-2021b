@@ -4,6 +4,9 @@ import { Router } from "express";   //R mayuscula objeto que nos va a permitir c
 //Importando el modulo Path 
 import path from 'path';
 
+//Importando helper
+import {ROOT_DIR} from '../helpers/path.helpers.js';
+
 //2 Crear una instacia del enrutador
 const router =  Router();  //Router ,objeto enrutador
 
@@ -12,7 +15,7 @@ const router =  Router();  //Router ,objeto enrutador
 //GET: /admin/add-product
 
 router.get('/add-product',(_,res) => { //add-product.html
-    const ProductfilePath = path.join(path.resolve(), "server","views","add-product.html");
+    const ProductfilePath = path.join(ROOT_DIR, "server","views","add-product.html");
     res.sendFile(ProductfilePath);
 });
 

@@ -6,6 +6,9 @@ import path from 'path';
 import adminRoute from './routes/admin.route.js';
 import homeRoute from './routes/home.route.js';
 
+//Importando helper
+import {ROOT_DIR} from './helpers/path.helpers.js';
+
 console.log(`Variable de entorno: ${process.env.NODE_ENV}`)
 
 //Crear una instancia de Express
@@ -29,7 +32,7 @@ app.use(homeRoute);
 //404 error
 app.use((req,res,next) => {
 //  
-const ErrorfilePath = path.join(path.resolve(), "server","views","error-404.html");
+const ErrorfilePath = path.join(ROOT_DIR(), "server","views","error-404.html");
 res.status(404).sendFile(ErrorfilePath);
 });
 
