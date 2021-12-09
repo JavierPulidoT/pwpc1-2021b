@@ -1,7 +1,7 @@
 // Importando express
 
 import Express from 'express'
-
+import path from 'path';
 //Importar enrutadores
 import adminRoute from './routes/admin.route.js';
 import homeRoute from './routes/home.route.js';
@@ -28,7 +28,9 @@ app.use(homeRoute);
 
 //404 error
 app.use((req,res,next) => {
-  res.status(404).send('<h1>🥺Recurso no encontrado</h1>');
+//  
+const ErrorfilePath = path.join(path.resolve(), "server","views","error-404.html");
+res.status(404).sendFile(ErrorfilePath);
 });
 
 

@@ -9,14 +9,15 @@ const router =  Router();
 
 //3 Registrar rutas a mi enrutador
 
-router.get('/about',(_, res)=>{ 
-   res.send("<h1> Acerca de ...</h1>\n  Sitio inicial hecho con NodeJS!");
+router.get('/about',(_, res)=>{  //about.html
+   const AboutfilePath = path.join(path.resolve(), "server","views","about.html");
+   res.sendFile(AboutfilePath);
 });
 
-router.get(['/','/home'],(_, res)=>{
+router.get(['/','/home'],(_, res)=>{ //shop.html
     console.log('📞 Se ha realizado la petición: "/"');
-    const filePath = path.join(path.resolve(),"server","views","shop.html");                
-    res.sendFile(filePath);                   //ruta obsulutas y Rutas relativas
+    const ShopfilePath = path.join(path.resolve(),"server","views","shop.html");                
+    res.sendFile(ShopfilePath);                  //ruta obsulutas y Rutas relativas
   });
 
 
