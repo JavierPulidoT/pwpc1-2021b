@@ -14,7 +14,7 @@ const router =  Router();  //Router ,objeto enrutador
 //Formulario sirve para agregar productos
 //GET: /admin/add-product
 
-router.get('/add-product',(_,res) => { //add-product.html
+router.get('/add-product',(_,res) => { //add-product.html   
     const ProductfilePath = path.join(ROOT_DIR, "server","views","add-product.html");
     res.sendFile(ProductfilePath);
 });

@@ -32,7 +32,7 @@ app.use(homeRoute);
 //404 error
 app.use((req,res,next) => {
 //  
-const ErrorfilePath = path.join(ROOT_DIR(), "server","views","error-404.html");
+const ErrorfilePath = path.join(ROOT_DIR, "server","views","error-404.html");
 res.status(404).sendFile(ErrorfilePath);
 });
 

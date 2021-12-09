@@ -11,7 +11,7 @@ const router =  Router();
 
 //3 Registrar rutas a mi enrutador
 
-router.get('/about',(_, res)=>{  //about.html  //path.resolve
+router.get('/about',(_, res)=>{  //about.html  //path.resolve  
    const AboutfilePath = path.join(ROOT_DIR, "server","views","about.html");
    res.sendFile(AboutfilePath);
 });
