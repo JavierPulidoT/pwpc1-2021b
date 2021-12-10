@@ -1,13 +1,14 @@
 // Importando express
 
-import Express from 'express'
+import Express from 'express';
 import path from 'path';
-//Importar enrutadores
-import adminRoute from './routes/admin.route.js';
-import homeRoute from './routes/home.route.js';
+// Importar enrutadores
+import { router as adminRoute } from "./routes/admin.route.js";
+import homeRoute from "./routes/home.route.js";
 
 //Importando helper
 import {ROOT_DIR} from './helpers/path.helpers.js';
+
 
 console.log(`Variable de entorno: ${process.env.NODE_ENV}`)
 
@@ -22,6 +23,11 @@ app.use((req,_,next)=>{
     console.log(`📞 Se ha realizado la petición: "${req.method} : ${req.path}"`);
     next();
   });
+
+  //Registrando el middlerware que maneja
+  //el servicio de archivo
+app.use(Express.static(path.join(ROOT_DIR,'public')));
+
 
 //Se agrega a la aplicacion la ruta Admin
 app.use('/admin',adminRoute);
